@@ -15,13 +15,14 @@ class Alarm(object):
         self.State = None
         self.LastStateChange = None
         self.LastStateChangeBy = None
-
+        self.Sensors = None
         self.UpdateStatus()
 
     def UpdateStatus(self):
         self.Status = AlarmStatus(self.API.GetState(), self.API)
         self.Users = self.Status.Users
         self.State = self.Status.SystemState.ArmType
+        self.Sensors = self.Status.StateDevices
         self.LastStateChange = self.Status.SystemState.ArmTypeChangedTime
         events = json.loads(self.API.GetEvents(date=self.LastStateChange)["Events"])
         matching_events = [
