@@ -13,4 +13,4 @@ Still missing:
 Potential issues:
 * Even though datetimes are formatted with the Z suffix by the API the time seems to be in the users local timezone rather than UTC
 
-Heavily inspired by the TS implementation by [hyber1z0r](https://github.com/hyber1z0r/g4s/blob/master/src/types/SystemState.ts)
+Heavily inspired by the TS implementation by [hyber1z0r](https://github.com/hyber1z0r/g4s)
