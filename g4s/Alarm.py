@@ -50,6 +50,12 @@ class Alarm(object):
         self.API.DisarmAlarm()
         self.UpdateStatus()
 
+    def __str__(self) -> str:
+        return str(self.State)
+
+    def __repr__(self) -> str:
+        return str(self)
+
 
 if __name__ == "__main__":
     import os
