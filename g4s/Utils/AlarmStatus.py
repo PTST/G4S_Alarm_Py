@@ -8,6 +8,8 @@ class AlarmStatus(object):
         self.PanelId = inputDict["panelInfo"]["PanelId"]
         self.Name = inputDict["panelInfo"]["Name"]
         self.PanelState = PanelState(inputDict["panelState"])
-        self.StateDevices = [StateDevice(device) for device in inputDict["stateDevices"]]
+        self.StateDevices = [
+            StateDevice(device) for device in inputDict["stateDevices"]
+        ]
         self.SystemState = PanelState(inputDict["systemState"])
         self.Users = [User(user, api) for user in inputDict["users"]]

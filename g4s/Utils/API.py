@@ -64,7 +64,12 @@ class API(object):
 
     def DisarmAlarm(self):
         url = f"{self.BaseUrl}/{self.CommandUrlPart}"
-        body = {"email": self.Username, "password": self.Password, "methodToInvoke": "Disarm", "panelId": self.PanelId}
+        body = {
+            "email": self.Username,
+            "password": self.Password,
+            "methodToInvoke": "Disarm",
+            "panelId": self.PanelId,
+        }
         r = requests.post(url, json=body)
         return r.json()
 

@@ -53,9 +53,9 @@ class StateDevice(object):
         self.Name = inputDict["Name"]
         self.ParentDeviceId = inputDict["ParentDeviceId"]
         self.PanelId = inputDict["PanelId"]
-    
+
     def __str__(self) -> str:
         return f"{self.Name} - {self.Type.name}"
-    
+
     def __repr__(self) -> str:
         return str(self)

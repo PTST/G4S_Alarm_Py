@@ -9,7 +9,7 @@ class ArmType(Enum):
 
     def __str__(self):
         return self.name
-    
+
     def __repr__(self) -> str:
         return str(self)
 
@@ -31,7 +31,7 @@ class DeviceType(Enum):
 
     def __str__(self):
         return self.name
-    
+
     def __repr__(self) -> str:
         return str(self)
 
@@ -48,6 +48,6 @@ class EventType(Enum):
 
     def __str__(self):
         return self.name
-    
+
     def __repr__(self) -> str:
         return str(self)

@@ -28,7 +28,10 @@ class Alarm(object):
         matching_events = [
             x
             for x in events
-            if StaticUtils.ParseDate(x["Events"][0]["Header"]["LocalTime"].replace('"', "")) == self.LastStateChange
+            if StaticUtils.ParseDate(
+                x["Events"][0]["Header"]["LocalTime"].replace('"', "")
+            )
+            == self.LastStateChange
             and x["Events"][0]["UserId"] is not None
         ]
         if len(matching_events) > 0:
@@ -47,8 +50,10 @@ class Alarm(object):
         self.API.DisarmAlarm()
         self.UpdateStatus()
 
+
 if __name__ == "__main__":
     import os
+
     username = os.environ["g4s_username"]
     password = os.environ["g4s_password"]
     g4s = Alarm(username, password)

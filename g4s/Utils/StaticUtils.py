@@ -1,6 +1,7 @@
 from datetime import datetime
 import dateutil.parser
 
+
 class StaticUtils(object):
     @staticmethod
     def ParseDate(x):
