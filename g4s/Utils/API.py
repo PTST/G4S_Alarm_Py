@@ -10,23 +10,31 @@ class API(object):
         self.StatusUrlPart = "systemstatus/getState"
         self.CommandUrlPart = "Commands/invokeAPI"
         self.PanelId = None
+        self.GetState()
 
     def GetState(self):
         url = f"{self.BaseUrl}/{self.StatusUrlPart}"
         body = {"username": self.Username, "password": self.Password}
         if self.PanelId is not None:
-            body["panelId"] = panel_id
+            body["panelId"] = self.PanelId
         r = requests.post(url, json=body)
         r.raise_for_status()
-
         return_value = r.json()
+        if return_value["Response"] != 0:
+            raise Exception(return_value["ResponseDescription"])
         if self.PanelId is None:
             self.PanelId = return_value["panelInfo"]["PanelId"]
         return return_value
 
     def ArmAlarm(self):
         url = f"{self.BaseUrl}/{self.CommandUrlPart}"
-        body = {"email": self.Username, "password": self.Password, "methodToInvoke": "Arm", "panelId": self.PanelId}
+        body = {
+            "email": self.Username,
+            "password": self.Password,
+            "methodToInvoke": "Arm",
+            "panelId": self.PanelId,
+            "partition": 0,
+        }
         r = requests.post(url, json=body)
         return r.json()
 
@@ -37,6 +45,18 @@ class API(object):
             "password": self.Password,
             "methodToInvoke": "Arm",
             "partition": 2,
+            "panelId": self.PanelId,
+        }
+        r = requests.post(url, json=body)
+        return r.json()
+
+    def DayArmAlarm(self):
+        url = f"{self.BaseUrl}/{self.CommandUrlPart}"
+        body = {
+            "email": self.Username,
+            "password": self.Password,
+            "methodToInvoke": "Arm",
+            "partition": 1,
             "panelId": self.PanelId,
         }
         r = requests.post(url, json=body)

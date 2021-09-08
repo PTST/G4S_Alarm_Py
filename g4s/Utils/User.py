@@ -20,3 +20,9 @@ class User(object):
 
     def ChangePanelPin(self, newPin):
         api.ChangeUserPanelPin(self.Id, str(newPin))
+
+    def __str__(self) -> str:
+        return self.Name
+
+    def __repr__(self) -> str:
+        return str(self)

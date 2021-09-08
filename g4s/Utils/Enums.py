@@ -7,6 +7,12 @@ class ArmType(Enum):
     UNKNOWN = 2
     DISARMED = 3
 
+    def __str__(self):
+        return self.name
+    
+    def __repr__(self) -> str:
+        return str(self)
+
 
 class DeviceType(Enum):
     Unknown = -1
@@ -16,11 +22,18 @@ class DeviceType(Enum):
     Smokealarm = 16
     Siren = 24
     Camera = 38
+    ZWaveController = 116
     AccessChip = 201
 
     @classmethod
     def _missing_(cls, value):
         return DeviceType.Unknown
+
+    def __str__(self):
+        return self.name
+    
+    def __repr__(self) -> str:
+        return str(self)
 
 
 class EventType(Enum):
@@ -32,3 +45,9 @@ class EventType(Enum):
     @classmethod
     def _missing_(cls, value):
         return EventType.Unknown
+
+    def __str__(self):
+        return self.name
+    
+    def __repr__(self) -> str:
+        return str(self)
