@@ -23,7 +23,7 @@ class API:
         if return_value["Response"] != 0:
             raise Exception(return_value["ResponseDescription"])
         if self.panel_id is None:
-            self.panel_id = return_value["panelInfo"]["panel_id"]
+            self.panel_id = return_value["panelInfo"]["PanelId"]
         return return_value
 
     def arm_alarm(self):
@@ -32,7 +32,7 @@ class API:
             "email": self.username,
             "password": self.password,
             "methodToInvoke": "Arm",
-            "panel_id": self.panel_id,
+            "panelId": self.panel_id,
             "partition": 0,
         }
         req = requests.post(url, json=body)
@@ -45,7 +45,7 @@ class API:
             "password": self.password,
             "methodToInvoke": "Arm",
             "partition": 2,
-            "panel_id": self.panel_id,
+            "panelId": self.panel_id,
         }
         req = requests.post(url, json=body)
         return req.json()
@@ -57,7 +57,7 @@ class API:
             "password": self.password,
             "methodToInvoke": "Arm",
             "partition": 1,
-            "panel_id": self.panel_id,
+            "panelId": self.panel_id,
         }
         req = requests.post(url, json=body)
         return req.json()
@@ -68,7 +68,7 @@ class API:
             "email": self.username,
             "password": self.password,
             "methodToInvoke": "Disarm",
-            "panel_id": self.panel_id,
+            "panelId": self.panel_id,
         }
         req = requests.post(url, json=body)
         return req.json()
@@ -76,7 +76,7 @@ class API:
     def change_user_panel_pin(self, user_id, access_code):
         url = f"{self.base_url}/users/SetTr5AccessCode"
         body = {
-            "panel_id": self.panel_id,
+            "panelId": self.panel_id,
             "userName": self.username,
             "password": self.password,
             "accessCode": access_code,
@@ -92,7 +92,7 @@ class API:
             "email": self.username,
             "password": self.password,
             "methodToInvoke": "GetEventsHistory",
-            "panel_id": self.panel_id,
+            "panelId": self.panel_id,
             "eventTypeList": "314,56,57,51,58,59,1,2,5,153,155,3,156,8,9,1010,39,40,203,211,212,215,216,222,223,411,412,506,510,511,513,514,515,516,904,906,907,909,910,912,913,915,916,918,919,921,104,106,105,101,103,102,150,152,151,204,1201,1207,1253,706,705,220,221,107,109,112,113,114,418,1258,1259,1260,1875,1876,1205,1208,1602,1601,1604,1610,1611,1640,1641,1612,1613,1614,1615,1616,927,928,930,931,933,901,903,108,810,811,812,813,814,927,815,1617,1618,1810,1811,1891,1892,1893,1894,1895,1896,30,1812,1879,1883,1884,1899,1900,1901,1902,1903",
             "numberOfEvents": count,
         }

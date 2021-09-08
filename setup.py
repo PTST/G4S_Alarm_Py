@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="G4S",  # Replace with your own username
-    version="0.1.0",
+    version="0.1.1",
     author="PTST",
     author_email="patrick@steffensen.io",
     description="API interface for G4S Alarms",

@@ -37,11 +37,11 @@ class Alarm:
         ]
         if len(matching_events) > 0:
             user_id = matching_events[0]["Events"][0]["UserId"]
-            self.last_state_change_by = [x for x in self.users if x.Id == user_id][0]
+            self.last_state_change_by = [x for x in self.users if x.id == user_id][0]
         self.panel_settings.default_temperature_device = [
             x
             for x in self.sensors
-            if x.Id == self.panel_settings.default_temperature_device_id
+            if x.id == self.panel_settings.default_temperature_device_id
         ][0]
 
     def arm(self):

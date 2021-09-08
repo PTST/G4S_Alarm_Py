@@ -31,8 +31,8 @@ class StateDevice:
         self.associated_output_type = inputDict["associatedOutputType"]
         self.associated_output_id = inputDict["associatedOutputId"]
         self.owner = inputDict["owner"]
-        self.panel_update_time = timeZone.DateTimeAsUTC(inputDict["panelUpdateTime"])
-        self.update_time = timeZone.DateTimeAsUTC(inputDict["updateTime"])
+        self.panel_update_time = timeZone.date_time_as_utc(inputDict["panelUpdateTime"])
+        self.update_time = timeZone.date_time_as_utc(inputDict["updateTime"])
         self.chime = inputDict["chime"]
         self.security_mode = inputDict["securityMode"]
         self.is_outdoor_mode = inputDict["isOutdoorMode"]
@@ -45,7 +45,7 @@ class StateDevice:
         self.is_pulse_device = inputDict["isPulseDevice"]
         self.ut_device_type = inputDict["utDeviceType"]
         self.additional_data = inputDict["additionalData"]
-        self.added_or_reset_time = timeZone.DateTimeAsUTC(inputDict["addedOrResetTime"])
+        self.added_or_reset_time = timeZone.date_time_as_utc(inputDict["addedOrResetTime"])
         self.pk_id = inputDict["PkId"]
         self.id = inputDict["Id"]
         self.type_id = inputDict["Type"]
