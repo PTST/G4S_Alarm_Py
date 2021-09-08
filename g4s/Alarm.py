@@ -1,66 +1,63 @@
 import json
 
-from Utils.API import API
-from Utils.AlarmStatus import AlarmStatus
-from Utils.StaticUtils import StaticUtils
+from g4s.utils.api import API
+from g4s.utils.alarm_status import AlarmStatus
 
 
-class Alarm(object):
+class Alarm:
     def __init__(self, username, password):
-        self.Username = username
-        self.Password = password
-        self.API = API(self.Username, self.Password)
-        self.Status = None
-        self.Users = None
-        self.State = None
-        self.LastStateChange = None
-        self.LastStateChangeBy = None
-        self.Sensors = None
-        self.UpdateStatus()
+        self.usernam = username
+        self.password = password
+        self.api = API(self.usernam, self.password)
+        self.status = None
+        self.users = None
+        self.state = None
+        self.last_state_change = None
+        self.last_state_change_by = None
+        self.sensors = None
+        self.panel_settings = None
+        self.update_status()
 
-    def UpdateStatus(self):
-        self.Status = AlarmStatus(self.API.GetState(), self.API)
-        self.Users = self.Status.Users
-        self.State = self.Status.SystemState.ArmType
-        self.Sensors = self.Status.StateDevices
-        self.LastStateChange = self.Status.SystemState.ArmTypeChangedTime
-        events = json.loads(self.API.GetEvents(date=self.LastStateChange)["Events"])
+    def update_status(self):
+        self.status = AlarmStatus(self.api.get_state(), self.api)
+        self.panel_settings = self.status.panel_settings
+        self.users = self.status.users
+        self.state = self.status.system_state.arm_type
+        self.sensors = self.status.state_devices
+        self.last_state_change = self.status.system_state.arm_type_changed_time
+        events = json.loads(self.api.get_events(date=self.last_state_change)["Events"])
         matching_events = [
             x
             for x in events
-            if StaticUtils.ParseDate(
+            if self.panel_settings.time_zone.date_time_as_utc(
                 x["Events"][0]["Header"]["LocalTime"].replace('"', "")
             )
-            == self.LastStateChange
+            == self.last_state_change
             and x["Events"][0]["UserId"] is not None
         ]
         if len(matching_events) > 0:
             user_id = matching_events[0]["Events"][0]["UserId"]
-            self.LastStateChangeBy = [x for x in self.Users if x.Id == user_id][0]
+            self.last_state_change_by = [x for x in self.users if x.Id == user_id][0]
+        self.panel_settings.default_temperature_device = [
+            x
+            for x in self.sensors
+            if x.Id == self.panel_settings.default_temperature_device_id
+        ][0]
 
-    def Arm(self):
-        self.API.ArmAlarm()
-        self.UpdateStatus()
+    def arm(self):
+        self.api.arm_alarm()
+        self.update_status()
 
-    def NightArm(self):
-        self.API.NightArmAlarm()
-        self.UpdateStatus()
+    def night_arm(self):
+        self.api.night_arm_alarm()
+        self.update_status()
 
-    def Disarm(self):
-        self.API.DisarmAlarm()
-        self.UpdateStatus()
+    def disarm(self):
+        self.api.disarm_alarm()
+        self.update_status()
 
     def __str__(self) -> str:
-        return str(self.State)
+        return str(self.state)
 
     def __repr__(self) -> str:
         return str(self)
-
-
-if __name__ == "__main__":
-    import os
-
-    username = os.environ["g4s_username"]
-    password = os.environ["g4s_password"]
-    g4s = Alarm(username, password)
-    print(g4s.State)

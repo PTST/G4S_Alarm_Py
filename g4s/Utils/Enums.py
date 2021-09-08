@@ -15,19 +15,19 @@ class ArmType(Enum):
 
 
 class DeviceType(Enum):
-    Unknown = -1
-    Hub = 1
-    DoorWindowSensor = 2
-    Panel = 14
-    Smokealarm = 16
-    Siren = 24
-    Camera = 38
-    ZWaveController = 116
-    AccessChip = 201
+    UNKNOWN = -1
+    HUB = 1
+    DOORWINDOWSENSOR = 2
+    PANEL = 14
+    SMOKEALARM = 16
+    SIREN = 24
+    CAMERA = 38
+    ZWAVECONTROLLER = 116
+    ACCESSCHIP = 201
 
     @classmethod
-    def _missing_(cls, value):
-        return DeviceType.Unknown
+    def _missing_(cls, _):
+        return DeviceType.UNKNOWN
 
     def __str__(self):
         return self.name
@@ -37,14 +37,14 @@ class DeviceType(Enum):
 
 
 class EventType(Enum):
-    Unknown = -1
-    Arm = 39
-    Disarm = 40
-    NightArm = 57
+    UNKNOWN = -1
+    ARM = 39
+    DISARM = 40
+    NIGHTARM = 57
 
     @classmethod
-    def _missing_(cls, value):
-        return EventType.Unknown
+    def _missing_(cls, _):
+        return EventType.UNKNOWN
 
     def __str__(self):
         return self.name
