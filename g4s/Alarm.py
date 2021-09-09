@@ -22,7 +22,6 @@ class Alarm:
         self.last_state_change_by: User
         self.sensors: List[StateDevice]
         self.panel_settings: PanelSettings
-        self.update_status()
 
     def update_status(self) -> None:
         self.status = AlarmStatus(self.api.get_state(), self.api)

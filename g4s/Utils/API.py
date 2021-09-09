@@ -11,6 +11,8 @@ class API:
         self.status_url_part: str = "systemstatus/getState"
         self.command_url_part: str = "Commands/invokeAPI"
         self.panel_id: Optional[int] = None
+
+    def update_all(self):
         self.get_state()
 
     def get_state(self) -> Dict[str, Any]:

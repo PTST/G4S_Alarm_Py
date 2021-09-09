@@ -61,3 +61,6 @@ class PanelState:
         self.sirens_entry_exit_duration: int = input_dict["SirensEntryExitDuration"]
         self.frt_state: int = input_dict["FrtState"]
         self.frt_state_changed_time: Optional[datetime] = time_zone.date_time_as_utc(input_dict["FrtStateChangedTime"])
+
+        if (self.arm_type == ArmType.NIGHT_ARM or self.arm_type == ArmType.FULL_ARM) and self.arm_delayed_state == 1:
+            self.arm_type = ArmType.PENDING_ARM

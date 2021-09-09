@@ -7,6 +7,7 @@ class ArmType(Enum):
     NIGHT_ARM = 1
     UNKNOWN = 2
     DISARMED = 3
+    PENDING_ARM = 99
 
     def __str__(self) -> str:
         return self.name
