@@ -1,10 +1,10 @@
 from g4s.utils.static_utils import StaticUtils
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any, Optional, Dict
 
 
 class TimeZone:
-    def __init__(self, input_dict: dict[str, Any]) -> None:
+    def __init__(self, input_dict: Dict[str, Any]) -> None:
         self.country_code: str = input_dict["CountryCode"]
         self.time_zone_id: int = input_dict["TimeZoneId"]
         self.olson_name: str = input_dict["OlsonName"]

@@ -1,11 +1,11 @@
 from datetime import datetime
 from g4s.utils.time_zone import TimeZone
 from g4s.utils.enums import DeviceType
-from typing import Any, Optional
+from typing import Any, Optional, Dict
 
 
 class StateDevice:
-    def __init__(self, input_dict: dict[str, Any], timeZone: TimeZone) -> None:
+    def __init__(self, input_dict: Dict[str, Any], timeZone: TimeZone) -> None:
         self.key: Optional[int] = input_dict["key"]
         self.is_tampered: Optional[bool] = input_dict["isTampered"]
         self.has_low_battery: Optional[bool] = input_dict["hasLowBattery"]
@@ -23,7 +23,7 @@ class StateDevice:
         self.battery_level: Optional[int] = input_dict["batteryLevel"]
         self.temperature_level: Optional[int] = input_dict["temperatureLevel"]
         self.sub_type: Optional[int] = input_dict["subType"]
-        self.attributes: dict[str, Any] = input_dict["attributes"]
+        self.attributes: Dict[str, Any] = input_dict["attributes"]
         self.hardware_device_type: Optional[int] = input_dict["hardwareDeviceType"]
         self.role_group_id: int = input_dict["roleGroupId"]
         self.bypass_state: int = input_dict["bypassState"]

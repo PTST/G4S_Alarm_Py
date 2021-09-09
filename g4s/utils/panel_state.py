@@ -1,11 +1,11 @@
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any, Optional, Dict
 from g4s.utils.time_zone import TimeZone
 from g4s.utils.enums import ArmType
 
 
 class PanelState:
-    def __init__(self, input_dict: dict[str, Any], time_zone: TimeZone) -> None:
+    def __init__(self, input_dict: Dict[str, Any], time_zone: TimeZone) -> None:
         self.arm_type: ArmType = ArmType(input_dict["ArmType"])
         self.arm_type_changed_time: Optional[datetime] = time_zone.date_time_as_utc(input_dict["ArmTypeChangedTime"])
         self.arm_forced_state: int = input_dict["ArmForcedState"]
