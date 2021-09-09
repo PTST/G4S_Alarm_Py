@@ -1,58 +1,62 @@
+from datetime import datetime
 from g4s.utils.time_zone import TimeZone
 from g4s.utils.enums import DeviceType
+from typing import Optional
 
 
 class StateDevice:
-    def __init__(self, inputDict, timeZone: TimeZone):
-        self.key = inputDict["key"]
-        self.is_tampered = inputDict["isTampered"]
-        self.has_low_battery = inputDict["hasLowBattery"]
-        self.has_supervision_fault = inputDict["hasSupervisionFault"]
-        self.is_open = inputDict["isOpen"]
-        self.is_locked = inputDict["isLocked"]
-        self.is_lockout = inputDict["isLockout"]
-        self.is_triggered_alarm = inputDict["isTriggeredAlarm"]
-        self.alarm_type = inputDict["alarmType"]
-        self.user_name = inputDict["userName"]
-        self.serial_number = inputDict["serialNumber"]
-        self.day_partition = inputDict["dayPartition"]
-        self.night_partition = inputDict["nightPartition"]
-        self.rf_level = inputDict["rfLevel"]
-        self.battery_level = inputDict["batteryLevel"]
-        self.temperature_level = inputDict["temperatureLevel"]
-        self.sub_type = inputDict["subType"]
-        self.attributes = inputDict["attributes"]
-        self.hardware_device_type = inputDict["hardwareDeviceType"]
-        self.role_group_id = inputDict["roleGroupId"]
-        self.bypass_state = inputDict["bypassState"]
-        self.lock_changed_by_user = inputDict["lockChangedByUser"]
-        self.lock_changed_by_device_number = inputDict["lockChangedByDeviceNumber"]
-        self.lock_changed_by_device_type = inputDict["lockChangedByDeviceType"]
-        self.associated_output_type = inputDict["associatedOutputType"]
-        self.associated_output_id = inputDict["associatedOutputId"]
-        self.owner = inputDict["owner"]
-        self.panel_update_time = timeZone.date_time_as_utc(inputDict["panelUpdateTime"])
-        self.update_time = timeZone.date_time_as_utc(inputDict["updateTime"])
-        self.chime = inputDict["chime"]
-        self.security_mode = inputDict["securityMode"]
-        self.is_outdoor_mode = inputDict["isOutdoorMode"]
-        self.is_beep_enable = inputDict["isBeepEnable"]
-        self.full_exit_beeps_enabled = inputDict["fullExitBeepsEnabled"]
-        self.door_bell_enabled = inputDict["doorBellEnabled"]
-        self.sub_device_type = inputDict["subDeviceType"]
-        self.panel_device_id = inputDict["panelDeviceId"]
-        self.is_normally_open = inputDict["isNormallyOpen"]
-        self.is_pulse_device = inputDict["isPulseDevice"]
-        self.ut_device_type = inputDict["utDeviceType"]
-        self.additional_data = inputDict["additionalData"]
-        self.added_or_reset_time = timeZone.date_time_as_utc(inputDict["addedOrResetTime"])
-        self.pk_id = inputDict["PkId"]
-        self.id = inputDict["Id"]
-        self.type_id = inputDict["Type"]
-        self.type = DeviceType(inputDict["Type"])
-        self.name = inputDict["Name"]
-        self.parent_device_id = inputDict["ParentDeviceId"]
-        self.panel_id = inputDict["PanelId"]
+    def __init__(self, input_dict: dict[str, any], timeZone: TimeZone) -> None:
+        self.key: Optional[int] = input_dict["key"]
+        self.is_tampered: Optional[bool] = input_dict["isTampered"]
+        self.has_low_battery: Optional[bool] = input_dict["hasLowBattery"]
+        self.has_supervision_fault: Optional[bool] = input_dict["hasSupervisionFault"]
+        self.is_open: Optional[bool] = input_dict["isOpen"]
+        self.is_locked: bool = input_dict["isLocked"]
+        self.is_lockout: Optional[bool] = input_dict["isLockout"]
+        self.is_triggered_alarm: bool = input_dict["isTriggeredAlarm"]
+        self.alarm_type: int = input_dict["alarmType"]
+        self.user_name: Optional[str] = input_dict["userName"]
+        self.serial_number: str = input_dict["serialNumber"]
+        self.day_partition: bool = input_dict["dayPartition"]
+        self.night_partition: bool = input_dict["nightPartition"]
+        self.rf_level: Optional[int] = input_dict["rfLevel"]
+        self.battery_level: Optional[int] = input_dict["batteryLevel"]
+        self.temperature_level: Optional[int] = input_dict["temperatureLevel"]
+        self.sub_type: Optional[int] = input_dict["subType"]
+        self.attributes: dict[str, any] = input_dict["attributes"]
+        self.hardware_device_type: Optional[int] = input_dict["hardwareDeviceType"]
+        self.role_group_id: int = input_dict["roleGroupId"]
+        self.bypass_state: int = input_dict["bypassState"]
+        self.lock_changed_by_user: any = input_dict["lockChangedByUser"]
+        self.lock_changed_by_device_number: any = input_dict["lockChangedByDeviceNumber"]
+        self.lock_changed_by_device_type: any = input_dict["lockChangedByDeviceType"]
+        self.associated_output_type: Optional[int] = input_dict["associatedOutputType"]
+        self.associated_output_id: any = input_dict["associatedOutputId"]
+        self.owner: Optional[int] = input_dict["owner"]
+        self.panel_update_time: Optional[datetime] = timeZone.date_time_as_utc(input_dict["panelUpdateTime"])
+        self.update_time: Optional[datetime] = timeZone.date_time_as_utc(input_dict["updateTime"])
+        self.chime: bool = input_dict["chime"]
+        self.security_mode: Optional[int] = input_dict["securityMode"]
+        self.is_outdoor_mode: Optional[bool] = input_dict["isOutdoorMode"]
+        self.is_beep_enable: Optional[bool] = input_dict["isBeepEnable"]
+        self.full_exit_beeps_enabled: Optional[bool] = input_dict["fullExitBeepsEnabled"]
+        self.door_bell_enabled: Optional[bool] = input_dict["doorBellEnabled"]
+        self.sub_device_type: any = input_dict["subDeviceType"]
+        self.panel_device_id: any = input_dict["panelDeviceId"]
+        self.is_normally_open: any = input_dict["isNormallyOpen"]
+        self.is_pulse_device: any = input_dict["isPulseDevice"]
+        self.ut_device_type: any = input_dict["utDeviceType"]
+        self.additional_data: any = input_dict["additionalData"]
+        self.added_or_reset_time: Optional[datetime] = timeZone.date_time_as_utc(input_dict["addedOrResetTime"])
+        self.pk_id: int = input_dict["PkId"]
+        self.id: int = input_dict["Id"]
+        self.type_id: int = input_dict["Type"]
+        self.type: DeviceType = DeviceType(input_dict["Type"])
+        self.name: str = input_dict["Name"]
+        self.parent_device_id: any = input_dict["ParentDeviceId"]
+        self.panel_id: int = input_dict["PanelId"]
+        self.access_code: Optional[str] = input_dict.get("AccessCode")
+        self.pet_immune: Optional[bool] = input_dict.get("petImmune")
 
     def __str__(self) -> str:
         return f"{self.name} - {self.type.name}"

@@ -1,24 +1,30 @@
+from datetime import datetime
+from g4s.utils.panel_settings import PanelSettings
+from g4s.utils.state_device import StateDevice
+from g4s.utils.enums import ArmType
+from g4s.utils.user import User
 import json
+from typing import List
 
 from g4s.utils.api import API
 from g4s.utils.alarm_status import AlarmStatus
 
 
 class Alarm:
-    def __init__(self, username, password):
-        self.usernam = username
-        self.password = password
-        self.api = API(self.usernam, self.password)
-        self.status = None
-        self.users = None
-        self.state = None
-        self.last_state_change = None
-        self.last_state_change_by = None
-        self.sensors = None
-        self.panel_settings = None
+    def __init__(self, username: str, password: str) -> None:
+        self.username: str = username
+        self.password: str = password
+        self.api: API = API(self.username, self.password)
+        self.status: AlarmStatus = None
+        self.users: list(User) = None
+        self.state: ArmType = None
+        self.last_state_change: datetime = None
+        self.last_state_change_by: User = None
+        self.sensors: list(StateDevice) = None
+        self.panel_settings: PanelSettings = None
         self.update_status()
 
-    def update_status(self):
+    def update_status(self) -> None:
         self.status = AlarmStatus(self.api.get_state(), self.api)
         self.panel_settings = self.status.panel_settings
         self.users = self.status.users

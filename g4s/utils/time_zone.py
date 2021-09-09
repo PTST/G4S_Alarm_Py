@@ -1,15 +1,17 @@
 from g4s.utils.static_utils import StaticUtils
+from datetime import datetime
+from typing import Optional
 
 
 class TimeZone:
-    def __init__(self, input_dict):
-        self.country_code = input_dict.get("CountryCode")
-        self.time_zone_id = input_dict.get("TimeZoneId")
-        self.olson_name = input_dict.get("OlsonName")
-        self.is_enabled = input_dict.get("IsEnabled")
-        self.name = input_dict.get("Name")
+    def __init__(self, input_dict: dict[str, any]) -> None:
+        self.country_code: str = input_dict.get("CountryCode")
+        self.time_zone_id: int = input_dict.get("TimeZoneId")
+        self.olson_name: str = input_dict.get("OlsonName")
+        self.is_enabled: bool = input_dict.get("IsEnabled")
+        self.name: str = input_dict.get("Name")
 
-    def date_time_as_utc(self, string_date):
+    def date_time_as_utc(self, string_date: Optional[str]) -> Optional[datetime]:
         if string_date is None:
             return None
         date_time = StaticUtils.parse_date(string_date)

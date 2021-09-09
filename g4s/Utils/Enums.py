@@ -7,7 +7,7 @@ class ArmType(Enum):
     UNKNOWN = 2
     DISARMED = 3
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def __repr__(self) -> str:
@@ -29,7 +29,7 @@ class DeviceType(Enum):
     def _missing_(cls, _):
         return DeviceType.UNKNOWN
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def __repr__(self) -> str:
@@ -46,7 +46,7 @@ class EventType(Enum):
     def _missing_(cls, _):
         return EventType.UNKNOWN
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def __repr__(self) -> str:

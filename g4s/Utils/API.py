@@ -1,18 +1,19 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 import requests
+from typing import Optional
 
 
 class API:
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-        self.base_url = "https://mit.g4severhome.dk/ESI.API/API"
-        self.status_url_part = "systemstatus/getState"
-        self.command_url_part = "Commands/invokeAPI"
-        self.panel_id = None
+    def __init__(self, username: str, password: str) -> None:
+        self.username: str = username
+        self.password: str = password
+        self.base_url: str = "https://mit.g4severhome.dk/ESI.API/API"
+        self.status_url_part: str = "systemstatus/getState"
+        self.command_url_part: str = "Commands/invokeAPI"
+        self.panel_id: Optional[int] = None
         self.get_state()
 
-    def get_state(self):
+    def get_state(self) -> dict[str, any]:
         url = f"{self.base_url}/{self.status_url_part}"
         body = {"username": self.username, "password": self.password}
         if self.panel_id is not None:
@@ -26,7 +27,7 @@ class API:
             self.panel_id = return_value["panelInfo"]["PanelId"]
         return return_value
 
-    def arm_alarm(self):
+    def arm_alarm(self) -> dict[str, any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -38,7 +39,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def night_arm_alarm(self):
+    def night_arm_alarm(self) -> dict[str, any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -50,7 +51,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def day_arm_alarm(self):
+    def day_arm_alarm(self) -> dict[str, any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -62,7 +63,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def disarm_alarm(self):
+    def disarm_alarm(self) -> dict[str, any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -73,7 +74,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def change_user_panel_pin(self, user_id, access_code):
+    def change_user_panel_pin(self, user_id: int, access_code: str) -> dict[str, any]:
         url = f"{self.base_url}/users/SetTr5AccessCode"
         body = {
             "panelId": self.panel_id,
@@ -86,7 +87,7 @@ class API:
         req.raise_for_status()
         return req.json()
 
-    def get_events(self, event_type_list=None, count=100, date=None):
+    def get_events(self, event_type_list: Optional[list[str]]=None, count: int=100, date: Optional[datetime]=None) -> dict[str, any]:
         url = f"{self.base_url}/Events/InvokeApi"
         body = {
             "email": self.username,
