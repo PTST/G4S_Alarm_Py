@@ -8,9 +8,7 @@ class PanelSettings:
         self.time_zone: TimeZone = TimeZone(input_dict["TimeZone"])
         self.offset_from_utc_in_minutes: int = input_dict["OffsetFromUtcInMinutes"]
         self.temperature_unit: int = input_dict["OffsetFromUtcInMinutes"]
-        self.default_temperature_device_id: int = input_dict[
-            "DefaultTemperatureDevice"
-        ]["Id"]
+        self.default_temperature_device_id: int = input_dict["DefaultTemperatureDevice"]["Id"]
         self.default_temperature_device: Optional[StateDevice] = None
         self.installed_modules: int = input_dict["InstalledModules"]
         self.primary_link: int = input_dict["PrimaryLink"]

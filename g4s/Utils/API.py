@@ -87,7 +87,12 @@ class API:
         req.raise_for_status()
         return req.json()
 
-    def get_events(self, event_type_list: Optional[list[str]]=None, count: int=100, date: Optional[datetime]=None) -> dict[str, Any]:
+    def get_events(
+        self,
+        event_type_list: Optional[list[str]] = None,
+        count: int = 100,
+        date: Optional[datetime] = None,
+    ) -> dict[str, Any]:
         url = f"{self.base_url}/Events/InvokeApi"
         body = {
             "email": self.username,

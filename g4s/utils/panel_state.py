@@ -7,15 +7,11 @@ from g4s.utils.enums import ArmType
 class PanelState:
     def __init__(self, input_dict: dict[str, Any], time_zone: TimeZone) -> None:
         self.arm_type: ArmType = ArmType(input_dict["ArmType"])
-        self.arm_type_changed_time: Optional[datetime] = time_zone.date_time_as_utc(
-            input_dict["ArmTypeChangedTime"]
-        )
+        self.arm_type_changed_time: Optional[datetime] = time_zone.date_time_as_utc(input_dict["ArmTypeChangedTime"])
         self.arm_forced_state: int = input_dict["ArmForcedState"]
         self.arm_delayed_state: int = input_dict["ArmDelayedState"]
-        self.alarm_state:int = input_dict["AlarmState"]
-        self.alarm_state_time: Optional[datetime] = time_zone.date_time_as_utc(
-            input_dict["AlarmStateTime"]
-        )
+        self.alarm_state: int = input_dict["AlarmState"]
+        self.alarm_state_time: Optional[datetime] = time_zone.date_time_as_utc(input_dict["AlarmStateTime"])
         self.partition: int = input_dict["Partition"]
         self.device_name: Any = input_dict["DeviceName"]
         self.exit_delay_arm_in_process: bool = input_dict["ExitDelayArmInProcess"]
@@ -40,9 +36,8 @@ class PanelState:
         self.is_sim_card_ready: bool = input_dict["IsSimCardReady"]
         self.communication_link: int = input_dict["CommunicationLink"]
         self.backup_channel_status: int = input_dict["BackupChannelStatus"]
-        self.backup_channel_status_description: int = input_dict[
-            "BackupChannelStatusDescription"]
-        
+        self.backup_channel_status_description: int = input_dict["BackupChannelStatusDescription"]
+
         self.has_low_battery: bool = input_dict["HasLowBattery"]
         self.has_low_battery_changed_time: Optional[datetime] = time_zone.date_time_as_utc(
             input_dict["HasLowBatteryChangedTime"]
@@ -65,6 +60,4 @@ class PanelState:
         self.is_synchronized: bool = input_dict["IsSynchronized"]
         self.sirens_entry_exit_duration: int = input_dict["SirensEntryExitDuration"]
         self.frt_state: int = input_dict["FrtState"]
-        self.frt_state_changed_time: Optional[datetime] = time_zone.date_time_as_utc(
-            input_dict["FrtStateChangedTime"]
-        )
+        self.frt_state_changed_time: Optional[datetime] = time_zone.date_time_as_utc(input_dict["FrtStateChangedTime"])

@@ -3,6 +3,7 @@ from g4s.utils.api import API
 from g4s.utils.time_zone import TimeZone
 from typing import Any, Optional
 
+
 class User:
     def __init__(self, input_dict: dict[str, Any], api: API, time_zone: TimeZone) -> None:
         self.api: API = api

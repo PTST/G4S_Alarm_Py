@@ -35,9 +35,7 @@ class Alarm:
         matching_events = [
             x
             for x in events
-            if self.panel_settings.time_zone.date_time_as_utc(
-                x["Events"][0]["Header"]["LocalTime"].replace('"', "")
-            )
+            if self.panel_settings.time_zone.date_time_as_utc(x["Events"][0]["Header"]["LocalTime"].replace('"', ""))
             == self.last_state_change
             and x["Events"][0]["UserId"] is not None
         ]
@@ -45,9 +43,7 @@ class Alarm:
             user_id = matching_events[0]["Events"][0]["UserId"]
             self.last_state_change_by = [x for x in self.users if x.id == user_id][0]
         self.panel_settings.default_temperature_device = [
-            x
-            for x in self.sensors
-            if x.id == self.panel_settings.default_temperature_device_id
+            x for x in self.sensors if x.id == self.panel_settings.default_temperature_device_id
         ][0]
 
     def arm(self):

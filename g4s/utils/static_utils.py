@@ -4,7 +4,6 @@ from datetime import datetime
 from typing import Optional
 
 
-
 class StaticUtils:
     @staticmethod
     def parse_date(datetime_string: Optional[str]) -> Optional[datetime]:
