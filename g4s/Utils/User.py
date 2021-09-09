@@ -21,7 +21,7 @@ class User:
         self.can_access_smoke_cannon: bool = input_dict["canAccessSmokeCannon"]
         self.access_code: str = input_dict["accessCode"]
         self.email_confirmation_status: int = input_dict["emailConfirmationStatus"]
-        self.package_offerings: list[any] = input_dict["PackageOfferings"]
+        self.package_offerings: list[Any] = input_dict["PackageOfferings"]
 
     def change_panel_pin(self, new_pin: str):
         self.api.change_user_panel_pin(self.id, new_pin)

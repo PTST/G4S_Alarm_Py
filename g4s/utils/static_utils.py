@@ -7,7 +7,7 @@ from typing import Optional
 
 class StaticUtils:
     @staticmethod
-    def parse_date(datetime_string: str) -> Optional[datetime]:
+    def parse_date(datetime_string: Optional[str]) -> Optional[datetime]:
         if datetime_string is None:
             return None
         return dateutil.parser.parse(datetime_string)

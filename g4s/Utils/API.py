@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import requests
-from typing import Optional
+from typing import Any, Optional
 
 
 class API:
@@ -13,9 +13,9 @@ class API:
         self.panel_id: Optional[int] = None
         self.get_state()
 
-    def get_state(self) -> dict[str, any]:
+    def get_state(self) -> dict[str, Any]:
         url = f"{self.base_url}/{self.status_url_part}"
-        body = {"username": self.username, "password": self.password}
+        body: dict[str, Any] = {"username": self.username, "password": self.password}
         if self.panel_id is not None:
             body["panel_id"] = self.panel_id
         req = requests.post(url, json=body)
@@ -27,7 +27,7 @@ class API:
             self.panel_id = return_value["panelInfo"]["PanelId"]
         return return_value
 
-    def arm_alarm(self) -> dict[str, any]:
+    def arm_alarm(self) -> dict[str, Any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -39,7 +39,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def night_arm_alarm(self) -> dict[str, any]:
+    def night_arm_alarm(self) -> dict[str, Any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -51,7 +51,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def day_arm_alarm(self) -> dict[str, any]:
+    def day_arm_alarm(self) -> dict[str, Any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -63,7 +63,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def disarm_alarm(self) -> dict[str, any]:
+    def disarm_alarm(self) -> dict[str, Any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -74,7 +74,7 @@ class API:
         req = requests.post(url, json=body)
         return req.json()
 
-    def change_user_panel_pin(self, user_id: int, access_code: str) -> dict[str, any]:
+    def change_user_panel_pin(self, user_id: int, access_code: str) -> dict[str, Any]:
         url = f"{self.base_url}/users/SetTr5AccessCode"
         body = {
             "panelId": self.panel_id,
@@ -87,7 +87,7 @@ class API:
         req.raise_for_status()
         return req.json()
 
-    def get_events(self, event_type_list: Optional[list[str]]=None, count: int=100, date: Optional[datetime]=None) -> dict[str, any]:
+    def get_events(self, event_type_list: Optional[list[str]]=None, count: int=100, date: Optional[datetime]=None) -> dict[str, Any]:
         url = f"{self.base_url}/Events/InvokeApi"
         body = {
             "email": self.username,

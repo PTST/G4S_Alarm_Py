@@ -1,3 +1,4 @@
+from typing import Any
 from g4s.utils.panel_state import PanelState
 from g4s.utils.panel_settings import PanelSettings
 from g4s.utils.state_device import StateDevice
@@ -6,7 +7,7 @@ from g4s.utils.api import API
 
 
 class AlarmStatus:
-    def __init__(self, input_dict: dict[str, any], api: API) -> None:
+    def __init__(self, input_dict: dict[str, Any], api: API) -> None:
         self.panel_id: int = input_dict["panelInfo"]["PanelId"]
         self.name: str = input_dict["panelInfo"]["Name"]
         self.panel_settings: PanelSettings = PanelSettings(input_dict["panelSettings"])

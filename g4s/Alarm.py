@@ -1,10 +1,10 @@
 from datetime import datetime
+from typing import Optional
 from g4s.utils.panel_settings import PanelSettings
 from g4s.utils.state_device import StateDevice
 from g4s.utils.enums import ArmType
 from g4s.utils.user import User
 import json
-from typing import List
 
 from g4s.utils.api import API
 from g4s.utils.alarm_status import AlarmStatus
@@ -15,13 +15,13 @@ class Alarm:
         self.username: str = username
         self.password: str = password
         self.api: API = API(self.username, self.password)
-        self.status: AlarmStatus = None
-        self.users: list(User) = None
-        self.state: ArmType = None
-        self.last_state_change: datetime = None
-        self.last_state_change_by: User = None
-        self.sensors: list(StateDevice) = None
-        self.panel_settings: PanelSettings = None
+        self.status: AlarmStatus
+        self.users: list[User]
+        self.state: ArmType
+        self.last_state_change: Optional[datetime]
+        self.last_state_change_by: User
+        self.sensors: list[StateDevice]
+        self.panel_settings: PanelSettings
         self.update_status()
 
     def update_status(self) -> None:
