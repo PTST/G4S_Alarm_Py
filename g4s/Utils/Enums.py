@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 
 class ArmType(Enum):
@@ -26,7 +27,7 @@ class DeviceType(Enum):
     ACCESSCHIP = 201
 
     @classmethod
-    def _missing_(cls, _):
+    def _missing_(cls, value: Any):
         return DeviceType.UNKNOWN
 
     def __str__(self) -> str:
@@ -43,7 +44,7 @@ class EventType(Enum):
     NIGHTARM = 57
 
     @classmethod
-    def _missing_(cls, _):
+    def _missing_(cls, value: Any):
         return EventType.UNKNOWN
 
     def __str__(self) -> str:
