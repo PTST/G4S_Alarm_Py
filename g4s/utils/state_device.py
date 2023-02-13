@@ -55,7 +55,7 @@ class StateDevice:
         self.name: str = input_dict["Name"]
         self.parent_device_id: Any = input_dict["ParentDeviceId"]
         self.panel_id: int = input_dict["PanelId"]
-        self.access_code: Optional[str] = input_dict.get("AccessCode")
+        self.access_code: Optional[str] = input_dict.get("accessCode")
         self.pet_immune: Optional[bool] = input_dict.get("petImmune")
 
     def __str__(self) -> str:
