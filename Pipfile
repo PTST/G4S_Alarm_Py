@@ -12,6 +12,7 @@ pylint = "*"
 [packages]
 requests = "*"
 python-dateutil = "*"
+aiohttp = "*"
 
 [requires]
 python_version = "3.9"

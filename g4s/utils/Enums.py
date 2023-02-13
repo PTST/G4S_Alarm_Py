@@ -1,13 +1,17 @@
 from enum import Enum
 from typing import Any
 
-
+# pylint: disable=unused-argument
 class ArmType(Enum):
     FULL_ARM = 0
     NIGHT_ARM = 1
     UNKNOWN = 2
     DISARMED = 3
     PENDING_ARM = 99
+
+    @classmethod
+    def _missing_(cls, value: Any):
+        return ArmType.UNKNOWN
 
     def __str__(self) -> str:
         return self.name
@@ -53,3 +57,6 @@ class EventType(Enum):
 
     def __repr__(self) -> str:
         return str(self)
+
+
+# pylint: enable=unused-argument

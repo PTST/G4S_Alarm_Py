@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
-import requests
+import aiohttp
 from typing import Any, Optional, Dict, List
+import asyncio
 
 
 class API:
@@ -11,25 +12,37 @@ class API:
         self.status_url_part: str = "systemstatus/getState"
         self.command_url_part: str = "Commands/invokeAPI"
         self.panel_id: Optional[int] = None
+        self.session: Optional[aiohttp.ClientSession]
 
-    def update_all(self):
-        self.get_state()
+    async def update_all_async(self):
+        if not self.session:
+            self.session = aiohttp.ClientSession()
 
-    def get_state(self) -> Dict[str, Any]:
+        await self.get_state_async()
+
+    async def get_state_async(self) -> Dict[str, Any]:
+        if not self.session:
+            self.session = aiohttp.ClientSession()
+
         url = f"{self.base_url}/{self.status_url_part}"
         body: Dict[str, Any] = {"username": self.username, "password": self.password}
         if self.panel_id is not None:
             body["panel_id"] = self.panel_id
-        req = requests.post(url, json=body)
+        req = await self.session.post(url, json=body)
         req.raise_for_status()
-        return_value = req.json()
+        return_value = await req.json()
         if return_value["Response"] != 0:
             raise Exception(return_value["ResponseDescription"])
+
         if self.panel_id is None:
             self.panel_id = return_value["panelInfo"]["PanelId"]
+
         return return_value
 
-    def arm_alarm(self) -> Dict[str, Any]:
+    async def arm_alarm_async(self) -> Dict[str, Any]:
+        if not self.session:
+            self.session = aiohttp.ClientSession()
+
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -38,10 +51,11 @@ class API:
             "panelId": self.panel_id,
             "partition": 0,
         }
-        req = requests.post(url, json=body)
-        return req.json()
+        req = await self.session.post(url, json=body)
+        req.raise_for_status()
+        return await req.json()
 
-    def night_arm_alarm(self) -> Dict[str, Any]:
+    async def night_arm_alarm_async(self) -> Dict[str, Any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -50,10 +64,11 @@ class API:
             "partition": 2,
             "panelId": self.panel_id,
         }
-        req = requests.post(url, json=body)
-        return req.json()
+        req = await self.session.post(url, json=body)
+        req.raise_for_status()
+        return await req.json()
 
-    def day_arm_alarm(self) -> Dict[str, Any]:
+    async def day_arm_alarm_async(self) -> Dict[str, Any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -62,10 +77,11 @@ class API:
             "partition": 1,
             "panelId": self.panel_id,
         }
-        req = requests.post(url, json=body)
-        return req.json()
+        req = await self.session.post(url, json=body)
+        req.raise_for_status()
+        return await req.json()
 
-    def disarm_alarm(self) -> Dict[str, Any]:
+    async def disarm_alarm_async(self) -> Dict[str, Any]:
         url = f"{self.base_url}/{self.command_url_part}"
         body = {
             "email": self.username,
@@ -73,10 +89,11 @@ class API:
             "methodToInvoke": "Disarm",
             "panelId": self.panel_id,
         }
-        req = requests.post(url, json=body)
-        return req.json()
+        req = await self.session.post(url, json=body)
+        req.raise_for_status()
+        return await req.json()
 
-    def change_user_panel_pin(self, user_id: int, access_code: str) -> Dict[str, Any]:
+    async def change_user_panel_pin_async(self, user_id: int, access_code: str) -> Dict[str, Any]:
         url = f"{self.base_url}/users/SetTr5AccessCode"
         body = {
             "panelId": self.panel_id,
@@ -85,11 +102,11 @@ class API:
             "accessCode": access_code,
             "userId": user_id,
         }
-        req = requests.post(url, json=body)
+        req = await self.session.post(url, json=body)
         req.raise_for_status()
-        return req.json()
+        return await req.json()
 
-    def get_events(
+    async def get_events_async(
         self,
         event_type_list: Optional[List[str]] = None,
         count: int = 100,
@@ -110,6 +127,6 @@ class API:
         if date is not None:
             body["fromDate"] = date.strftime("%Y-%m-%d")
             body["toDate"] = (date + timedelta(days=1)).strftime("%Y-%m-%d")
-        req = requests.post(url, json=body)
+        req = await self.session.post(url, json=body)
         req.raise_for_status()
-        return req.json()
+        return await req.json()
